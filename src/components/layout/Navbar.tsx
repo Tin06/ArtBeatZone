@@ -44,7 +44,7 @@ export default function Navbar() {
 
           <button
             onClick={toggleLang}
-            className="flex items-center px-6 text-[0.72rem] font-bold tracking-[0.12em] uppercase bg-[#00ff88] text-black border-l border-[#00ff88] transition-colors duration-150 hover:bg-transparent hover:text-[#00ff88]"
+            className="flex items-center px-6 text-[0.72rem] font-bold tracking-[0.12em] uppercase bg-black text-[#00ff88] border-l border-[#00ff88] transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff]"
           >
             {lang === 'hr' ? 'EN' : 'HR'}
           </button>
@@ -54,9 +54,9 @@ export default function Navbar() {
             aria-label={t('Izbornik', 'Menu')}
             className="md:hidden flex flex-col items-center justify-center gap-[5px] w-[60px] border-l border-white/10 bg-transparent"
           >
-            <span className="block w-5 h-[1.5px] bg-white" />
-            <span className="block w-5 h-[1.5px] bg-white" />
-            <span className="block w-5 h-[1.5px] bg-white" />
+            <span className="block w-5 h-[1.5px] bg-[#00ff88]" />
+            <span className="block w-5 h-[1.5px] bg-[#00ff88]" />
+            <span className="block w-5 h-[1.5px] bg-[#00ff88]" />
           </button>
         </div>
 

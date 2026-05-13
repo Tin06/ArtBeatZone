@@ -15,9 +15,9 @@ export default function Footer() {
 
       <ul className="flex list-none">
         {[
-          { href: '#about', hr: 'O NAMA', en: 'ABOUT' },
-          { href: '#services', hr: 'USLUGE', en: 'SERVICES' },
-          { href: '#contact', hr: 'KONTAKT', en: 'CONTACT' },
+          { href: '#about',    hr: 'O NAMA',  en: 'ABOUT'    },
+          { href: '#services', hr: 'USLUGE',  en: 'SERVICES' },
+          { href: '#contact',  hr: 'KONTAKT', en: 'CONTACT'  },
         ].map(({ href, hr, en }) => (
           <li key={href}>
             <a

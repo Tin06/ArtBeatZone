@@ -102,7 +102,7 @@ export default function ScrollSequence() {
     <>
       {!loaded && (
         <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-5 bg-[#050505]">
-          <div className="h-10 w-10 rounded-full border-2 border-white/15 border-t-white/70 animate-spin" />
+          <div className="h-10 w-10 rounded-full border-2 border-white/15 border-t-[#00ff88] animate-spin" />
         </div>
       )}
 
@@ -114,16 +114,15 @@ export default function ScrollSequence() {
         <div className="sticky top-[60px] h-[calc(100vh-60px)] w-full overflow-hidden bg-[#050505]">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-          {/* Scroll hint — fades out after first 14% scroll */}
           <motion.div
             style={{ opacity: scrollHintOpacity }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
           >
-            <div className="w-[22px] h-[36px] rounded-[11px] border border-white/30 flex justify-center pt-[6px]">
+            <div className="w-[22px] h-[36px] rounded-[11px] border border-[#00ff88]/45 flex justify-center pt-[6px]">
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-[2px] h-[6px] rounded-full bg-white/50"
+                className="w-[2px] h-[6px] rounded-full bg-[#00ff88]"
               />
             </div>
           </motion.div>
@@ -134,7 +133,7 @@ export default function ScrollSequence() {
           >
             <a
               href="#contact"
-              className="border border-white/25 bg-black/50 px-10 py-5 text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-white/85 backdrop-blur-md transition-colors duration-200 hover:bg-white hover:text-black"
+              className="border border-[#00ff88]/60 bg-black/60 px-10 py-5 text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[#00ff88] backdrop-blur-md transition-colors duration-200 hover:border-[#00ffff] hover:text-[#00ffff]"
             >
               Javi se
             </a>

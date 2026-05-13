@@ -22,9 +22,7 @@ export default function CustomCursor() {
     const onOver = (e: MouseEvent) => {
       const target = e.target as Element
       const hoverable = target.closest('a, button, [data-hoverable]')
-      const invert = target.closest('[data-cursor-invert="true"]')
       document.body.classList.toggle('cursor-hover', !!hoverable)
-      document.body.classList.toggle('cursor-invert', !!invert)
     }
 
     document.addEventListener('mousemove', onMove)
