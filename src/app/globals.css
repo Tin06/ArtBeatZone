@@ -134,7 +134,7 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
-  --font-sans: var(--font-space-grotesk);
+  --font-sans: "Space Grotesk", "Inter", "Segoe UI", Arial, sans-serif;
 }
 
 body {

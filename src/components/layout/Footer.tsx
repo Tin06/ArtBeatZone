@@ -9,15 +9,15 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/10 flex flex-col md:flex-row items-stretch justify-between">
       <span className="px-12 py-6 text-[0.7rem] font-medium tracking-[0.08em] text-white/40 border-b md:border-b-0 md:border-r border-white/10 flex items-center">
-        © {year} ARTBEATZONE.{' '}
-        {t('SVA PRAVA PRIDRŽANA.', 'ALL RIGHTS RESERVED.')}
+        &copy; {year} ARTBEATZONE.{' '}
+        {t('SVA PRAVA PRIDRZANA.', 'ALL RIGHTS RESERVED.')}
       </span>
 
       <ul className="flex list-none">
         {[
-          { href: '#about',    hr: 'O NAMA',  en: 'ABOUT'    },
-          { href: '#services', hr: 'USLUGE',  en: 'SERVICES' },
-          { href: '#contact',  hr: 'KONTAKT', en: 'CONTACT'  },
+          { href: '#about', hr: 'O NAMA', en: 'ABOUT' },
+          { href: '#services', hr: 'USLUGE', en: 'SERVICES' },
+          { href: '#contact', hr: 'KONTAKT', en: 'CONTACT' },
         ].map(({ href, hr, en }) => (
           <li key={href}>
             <a
