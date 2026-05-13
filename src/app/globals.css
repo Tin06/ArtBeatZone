@@ -126,5 +126,94 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Brutalist theme ── */
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --font-sans: var(--font-space-grotesk);
+}
+
+body {
+  cursor: none;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #ffffff; }
+::-webkit-scrollbar-thumb { background: #000000; }
+
+/* ── Custom cursor base ── */
+#cursor-dot {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  width: 6px; height: 6px;
+  background: #000000; border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: background 0.15s;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9998;
+  width: 32px; height: 32px;
+  border: 1.5px solid #000000; border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.15s;
+}
+
+/* ── Cursor states (driven by body class from CustomCursor) ── */
+body.cursor-hover #cursor-ring { width: 52px; height: 52px; }
+body.cursor-invert #cursor-dot { background: #ffffff; }
+body.cursor-invert #cursor-ring { border-color: #ffffff; }
+
+/* ── Brutalist stacked carousel (data-pos attribute → CSS) ── */
+.proj-card {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid #000000;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s;
+  cursor: none;
+}
+.proj-card[data-pos="0"]  { transform: translate(0, 0) scale(1);          z-index: 3; opacity: 1;   }
+.proj-card[data-pos="1"]  { transform: translate(18px, 18px) scale(0.97); z-index: 2; opacity: 0.7; }
+.proj-card[data-pos="2"]  { transform: translate(36px, 36px) scale(0.94); z-index: 1; opacity: 0.4; }
+.proj-card[data-pos="-1"] { transform: translate(-60px, 10px) scale(0.9); z-index: 0; opacity: 0;   pointer-events: none; }
+
+/* ── Project card gradient backgrounds ── */
+.card-bg-0 { background: linear-gradient(135deg, #0a0a0a 0%, #2a2a2a 50%, #111111 100%); }
+.card-bg-1 { background: linear-gradient(135deg, #111111 0%, #333333 60%, #222222 100%); }
+.card-bg-2 { background: linear-gradient(135deg, #1a1a1a 0%, #444444 70%, #2a2a2a 100%); }
+.card-bg-3 { background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #333333 100%); }
+.card-bg-4 { background: linear-gradient(135deg, #222222 0%, #555555 60%, #333333 100%); }
+
+@layer utilities {
+  /* Hero heading & About "03" — black outline on white bg */
+  .text-outline-black {
+    -webkit-text-stroke: 2px #000000;
+    color: transparent;
+  }
+  /* Testimonials big quotation mark — thinner */
+  .text-outline-black-mid {
+    -webkit-text-stroke: 1.5px #000000;
+    color: transparent;
+  }
+  /* CTA "NAŠE RUKE." — white outline on black bg */
+  .text-outline-white {
+    -webkit-text-stroke: 2px #ffffff;
+    color: transparent;
+  }
+  /* About visual "ARTBEATZONE" — thin white on black bg */
+  .text-outline-white-thin {
+    -webkit-text-stroke: 1px #ffffff;
+    color: transparent;
+  }
+  /* Project card number — faint white */
+  .proj-num-outline {
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
+    color: transparent;
   }
 }
