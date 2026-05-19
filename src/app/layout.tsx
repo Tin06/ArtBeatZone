@@ -1,15 +1,31 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import CustomCursor from '@/components/ui/CustomCursor'
+import { siteConfig } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'ARTBEATZONE - Dizajn & Web',
-  description: 'Mali studio iz Zagreba za grafički dizajn, izradu web aplikacija i najam web stranica.',
+  metadataBase: new URL(siteConfig.url),
+  title: siteConfig.title,
+  description: siteConfig.description,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'ARTBEATZONE - Dizajn & Web',
-    description: 'Dizajniramo. Razvijamo. Realiziramo.',
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: 'hr_HR',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 

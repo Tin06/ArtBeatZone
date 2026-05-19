@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLang } from '@/lib/language'
 
 const navLinks = [
@@ -13,6 +13,24 @@ const navLinks = [
 export default function Navbar() {
   const { lang, toggleLang, t } = useLang()
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    if (!menuOpen) return
+
+    firstMenuLinkRef.current?.focus()
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        menuButtonRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[500] bg-black border-b border-white/10">
@@ -45,6 +63,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleLang}
+            aria-label={t('Promijeni jezik na engleski', 'Switch language to Croatian')}
             className="flex items-center px-6 text-[0.72rem] font-bold tracking-[0.12em] uppercase bg-black text-[#00ff88] border-l border-[#00ff88] transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff]"
           >
             {lang === 'hr' ? 'EN' : 'HR'}
@@ -53,7 +72,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMenuOpen(o => !o)}
+            ref={menuButtonRef}
             aria-label={t('Izbornik', 'Menu')}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             className="md:hidden flex flex-col items-center justify-center gap-[5px] w-[60px] border-l border-white/10 bg-transparent"
           >
             <span className="block w-5 h-[1.5px] bg-[#00ff88]" />
@@ -63,11 +85,15 @@ export default function Navbar() {
         </div>
 
         {menuOpen && (
-          <ul className="md:hidden fixed inset-0 top-[60px] bg-black z-[499] flex flex-col items-center justify-center list-none border-t border-white/10">
-            {navLinks.map(({ href, hr, en }) => (
+          <ul
+            id="mobile-menu"
+            className="md:hidden fixed inset-0 top-[60px] bg-black z-[499] flex flex-col items-center justify-center list-none border-t border-white/10"
+          >
+            {navLinks.map(({ href, hr, en }, index) => (
               <li key={href} className="w-full border-b border-white/10">
                 <a
                   href={href}
+                  ref={index === 0 ? firstMenuLinkRef : undefined}
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center justify-center py-6 text-[1rem] font-semibold tracking-[0.1em] uppercase text-white no-underline transition-colors duration-150 hover:text-[#00ff88]"
                 >

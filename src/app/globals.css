@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -79,6 +77,11 @@
   textarea {
     cursor: none;
   }
+
+  :focus-visible {
+    outline: 2px solid #00ff88;
+    outline-offset: 4px;
+  }
 }
 
 ::-webkit-scrollbar { width: 3px; }
@@ -120,6 +123,51 @@ body.cursor-hover #cursor-ring {
 }
 
 @media (pointer: coarse) {
+  body,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    cursor: auto;
+  }
+
+  #cursor-dot,
+  #cursor-ring {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    cursor: auto;
+  }
+
+  #cursor-dot,
+  #cursor-ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
   body,
   a,
   button,

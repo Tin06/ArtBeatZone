@@ -33,7 +33,10 @@ function getPos(i: number, current: number): string {
 export default function ProjectsSection() {
   const { t } = useLang()
   const [current, setCurrent] = useState(0)
+  const [reduceMotion, setReduceMotion] = useState(false)
+  const [isActive, setIsActive] = useState(true)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const touchX = useRef(0)
 
   const move = useCallback((dir: 1 | -1) => {
@@ -41,9 +44,10 @@ export default function ProjectsSection() {
   }, [])
 
   const startTimer = useCallback(() => {
+    if (reduceMotion || !isActive) return
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => move(1), 4500)
-  }, [move])
+  }, [isActive, move, reduceMotion])
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -54,10 +58,47 @@ export default function ProjectsSection() {
     return stopTimer
   }, [startTimer, stopTimer])
 
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => {
+      setReduceMotion(media.matches)
+      if (media.matches) stopTimer()
+    }
+
+    syncMotion()
+    media.addEventListener('change', syncMotion)
+    return () => media.removeEventListener('change', syncMotion)
+  }, [stopTimer])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const syncVisibility = () => {
+      const active = !document.hidden
+      setIsActive(active)
+      if (!active) stopTimer()
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      const active = entry.isIntersecting && !document.hidden
+      setIsActive(active)
+      if (!active) stopTimer()
+    }, { threshold: 0.25 })
+
+    observer.observe(section)
+    document.addEventListener('visibilitychange', syncVisibility)
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', syncVisibility)
+    }
+  }, [stopTimer])
+
   const pad = (x: number) => String(x).padStart(2, '0')
 
   return (
-    <section id="projects" className="border-b border-white/10 scroll-mt-[60px] bg-black">
+    <section id="projects" ref={sectionRef} className="border-b border-white/10 scroll-mt-[60px] bg-black">
       <div className="flex items-center justify-between px-5 md:px-12 py-8 md:py-12 border-b border-white/10">
         <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-[-0.03em] uppercase text-white">
           {t('Odabrani radovi', 'Selected Work')}
@@ -73,20 +114,26 @@ export default function ProjectsSection() {
       <div className="px-5 md:px-12 py-8 md:py-12">
         <div
           className="relative h-[400px] md:h-[520px] overflow-hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t('Odabrani radovi', 'Selected work')}
+          aria-live="polite"
           onMouseEnter={stopTimer}
           onMouseLeave={startTimer}
+          onFocusCapture={stopTimer}
+          onBlurCapture={startTimer}
           onTouchStart={e => { touchX.current = e.touches[0].clientX }}
           onTouchEnd={e => {
             const dx = e.changedTouches[0].clientX - touchX.current
             if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1)
           }}
-          onClick={() => move(1)}
         >
           {projects.map((proj, i) => (
             <div
               key={proj.name}
               className={`proj-card ${proj.bgClass}`}
               data-pos={getPos(i, current)}
+              aria-hidden={i !== current}
             >
               <div className="relative z-10 h-full flex flex-col justify-between p-5 md:p-10">
                 <span className="proj-num-outline text-[5rem] font-bold tracking-[-0.06em] leading-none">
@@ -124,7 +171,7 @@ export default function ProjectsSection() {
             -&gt;
           </button>
           <div className="h-[52px] border border-white/20 border-l-0 px-6 flex items-center text-[0.72rem] font-bold tracking-[0.1em] text-white/60">
-            {pad(current + 1)} / {pad(n)}
+            <span aria-live="polite">{pad(current + 1)} / {pad(n)}</span>
           </div>
         </div>
       </div>

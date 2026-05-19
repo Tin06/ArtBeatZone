@@ -1,21 +1,45 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useLang } from '@/lib/language'
+
+type FormStatus = 'idle' | 'ready'
 
 export default function ContactSection() {
   const { t } = useLang()
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<FormStatus>('idle')
 
-  function handleSubmit(e: { preventDefault(): void }) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => setSent(false), 3000)
+
+    const form = e.currentTarget
+    if (!form.reportValidity()) return
+
+    const formData = new FormData(form)
+    const name = String(formData.get('name') || '').trim()
+    const email = String(formData.get('email') || '').trim()
+    const service = String(formData.get('service') || '').trim()
+    const message = String(formData.get('message') || '').trim()
+    const subject = encodeURIComponent(`ArtBeatZone upit - ${name}`)
+    const body = encodeURIComponent(
+      [
+        `Ime: ${name}`,
+        `Email: ${email}`,
+        `Usluga: ${service || '-'}`,
+        '',
+        message,
+      ].join('\n'),
+    )
+
+    window.location.href = `mailto:hello@artbeatzone.hr?subject=${subject}&body=${body}`
+    setStatus('ready')
+    window.setTimeout(() => setStatus('idle'), 4000)
   }
 
-  const inputClass = 'bg-transparent text-white text-[0.9rem] py-5 px-6 outline-none transition-colors duration-150 focus:bg-[#00ff88]/8 w-full placeholder:text-white/25'
+  const inputClass = 'bg-transparent text-white text-[0.9rem] py-5 px-6 outline-none transition-colors duration-150 focus:bg-[#00ff88]/8 focus-visible:ring-2 focus-visible:ring-[#00ff88]/50 w-full placeholder:text-white/25'
   const labelClass = 'text-[0.62rem] font-bold tracking-[0.16em] uppercase text-[#00ff88] py-5 px-4 flex items-center border-b md:border-b-0 md:border-r border-white/10'
   const fieldClass = 'grid grid-cols-1 md:grid-cols-[140px_1fr] border-b border-white/10'
+  const helperId = 'contact-helper'
 
   return (
     <section id="contact" className="border-b border-white/10 scroll-mt-[60px] bg-black">
@@ -25,7 +49,7 @@ export default function ContactSection() {
         </p>
         <a
           href="mailto:hello@artbeatzone.hr"
-          className="text-[clamp(1rem,5vw,4.5rem)] font-bold tracking-[-0.02em] uppercase text-white no-underline inline-block border-b-[3px] border-[#00ff88] leading-[1.2] transition-colors duration-200 hover:text-[#00ff88] break-all"
+          className="text-[clamp(1rem,5vw,4.5rem)] font-bold tracking-[-0.02em] uppercase text-white no-underline inline-block border-b-[3px] border-[#00ff88] leading-[1.2] transition-colors duration-200 hover:text-[#00ff88] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff88]/60 break-all"
         >
           hello@artbeatzone.hr
         </a>
@@ -48,18 +72,24 @@ export default function ContactSection() {
         </div>
 
         <div className="px-5 md:px-12 py-10 md:py-16">
-          <form onSubmit={handleSubmit} className="flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col" aria-describedby={helperId}>
+            <p id={helperId} className="sr-only">
+              {t(
+                'Obavezna su polja ime, email i poruka. Slanje otvara vaš email klijent.',
+                'Name, email, and message are required. Submitting opens your email client.',
+              )}
+            </p>
             <div className={`${fieldClass} border-t`}>
               <label htmlFor="contact-name" className={labelClass}>{t('Ime', 'Name')}</label>
-              <input id="contact-name" name="name" type="text" placeholder={t('Ana Anic', 'Ana Anic')} className={inputClass} />
+              <input id="contact-name" name="name" type="text" placeholder={t('Ana Anić', 'Ana Anic')} className={inputClass} autoComplete="name" required />
             </div>
             <div className={fieldClass}>
               <label htmlFor="contact-email" className={labelClass}>Email</label>
-              <input id="contact-email" name="email" type="email" placeholder="ana@tvrtka.hr" className={inputClass} />
+              <input id="contact-email" name="email" type="email" placeholder="ana@tvrtka.hr" className={inputClass} autoComplete="email" required />
             </div>
             <div className={fieldClass}>
               <label htmlFor="contact-service" className={labelClass}>{t('Usluga', 'Service')}</label>
-              <select id="contact-service" name="service" className={`${inputClass} appearance-none`}>
+              <select id="contact-service" name="service" className={`${inputClass} appearance-none`} defaultValue="">
                 <option value="" className="bg-black">{t('- odaberite -', '- select -')}</option>
                 <option value="graficki-dizajn" className="bg-black">{t('Grafički dizajn', 'Graphic Design')}</option>
                 <option value="web-aplikacije" className="bg-black">{t('Izrada web aplikacija', 'Web Development')}</option>
@@ -73,16 +103,22 @@ export default function ContactSection() {
                 name="message"
                 placeholder={t('Opišite vaš projekt...', 'Describe your project...')}
                 className={`${inputClass} min-h-[120px] resize-none`}
+                required
               />
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col items-start gap-4">
               <button
                 type="submit"
-                className="bg-black text-[#00ff88] border-[1.5px] border-[#00ff88] px-12 py-4 text-[0.78rem] font-bold tracking-[0.12em] uppercase transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff]"
+                className="bg-black text-[#00ff88] border-[1.5px] border-[#00ff88] px-12 py-4 text-[0.78rem] font-bold tracking-[0.12em] uppercase transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff88]/60"
               >
-                {sent ? t('Poslano', 'Sent') : t('Posalji ->', 'Send ->')}
+                {t('Pošalji email ->', 'Send email ->')}
               </button>
+              <p className="min-h-5 text-[0.72rem] font-medium tracking-[0.08em] uppercase text-white/45" role="status" aria-live="polite">
+                {status === 'ready'
+                  ? t('Email klijent je otvoren za slanje poruke.', 'Your email client is ready to send the message.')
+                  : ''}
+              </p>
             </div>
           </form>
         </div>

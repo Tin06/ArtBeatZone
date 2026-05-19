@@ -10,13 +10,20 @@ export default function CustomCursor() {
     const dot = dotRef.current
     const ring = ringRef.current
     if (!dot || !ring) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse), (max-width: 768px)').matches) return
 
     let mx = -100, my = -100, rx = -100, ry = -100
-    let rafId: number
+    let rafId: number | null = null
+
+    function stopAnim() {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      rafId = null
+    }
 
     const onMove = (e: MouseEvent) => {
       mx = e.clientX
       my = e.clientY
+      if (!rafId) rafId = requestAnimationFrame(anim)
     }
 
     const onOver = (e: MouseEvent) => {
@@ -29,9 +36,14 @@ export default function CustomCursor() {
       document.body.classList.remove('cursor-hover')
     }
 
+    const onVisibilityChange = () => {
+      if (document.hidden) stopAnim()
+    }
+
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseover', onOver)
     document.addEventListener('mouseleave', onLeave)
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     function anim() {
       if (!dot || !ring) return
@@ -39,22 +51,22 @@ export default function CustomCursor() {
       rx += (mx - rx) * 0.15
       ry += (my - ry) * 0.15
       ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`
-      rafId = requestAnimationFrame(anim)
+      rafId = document.hidden ? null : requestAnimationFrame(anim)
     }
-    rafId = requestAnimationFrame(anim)
 
     return () => {
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseover', onOver)
       document.removeEventListener('mouseleave', onLeave)
-      cancelAnimationFrame(rafId)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      stopAnim()
     }
   }, [])
 
   return (
     <>
-      <div id="cursor-dot" ref={dotRef} />
-      <div id="cursor-ring" ref={ringRef} />
+      <div id="cursor-dot" ref={dotRef} aria-hidden="true" />
+      <div id="cursor-ring" ref={ringRef} aria-hidden="true" />
     </>
   )
 }

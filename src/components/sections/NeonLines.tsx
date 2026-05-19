@@ -56,9 +56,10 @@ export default function NeonLines() {
     let animId: number
     let width = 0
     let height = 0
+    let isVisible = true
 
     function resize() {
-      const dpr = window.devicePixelRatio || 1
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       width = canvasEl!.offsetWidth
       height = canvasEl!.offsetHeight
       canvasEl!.width = width * dpr
@@ -88,6 +89,16 @@ export default function NeonLines() {
 
     resize()
     window.addEventListener('resize', resize)
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting
+    })
+    observer.observe(canvasEl)
+
+    const onVisibilityChange = () => {
+      isVisible = !document.hidden
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     const lines: Line[] = CONFIGS.map((cfg, i) =>
       makeLine(cfg, -(i * 180 + Math.random() * 120)),
@@ -190,6 +201,11 @@ export default function NeonLines() {
     }
 
     function draw() {
+      if (!isVisible) {
+        animId = requestAnimationFrame(draw)
+        return
+      }
+
       context.clearRect(0, 0, width, height)
       update()
       for (const line of lines) drawLine(line)
@@ -201,6 +217,8 @@ export default function NeonLines() {
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      observer.disconnect()
     }
   }, [])
 
