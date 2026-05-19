@@ -19,20 +19,20 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="border-b border-white/10 scroll-mt-[60px] bg-black">
-      <div className="px-12 py-20 pb-12 border-b border-white/10">
+      <div className="px-5 md:px-12 py-12 md:py-20 pb-8 md:pb-12 border-b border-white/10">
         <p className="text-[0.65rem] font-bold tracking-[0.22em] uppercase text-[#00ffff] mb-6">
           {t('Kontaktirajte nas', 'Get in touch')}
         </p>
         <a
           href="mailto:hello@artbeatzone.hr"
-          className="text-[clamp(2rem,5vw,4.5rem)] font-bold tracking-[-0.04em] uppercase text-white no-underline inline-block border-b-[3px] border-[#00ff88] leading-[1.1] transition-colors duration-200 hover:text-[#00ff88]"
+          className="text-[clamp(1rem,5vw,4.5rem)] font-bold tracking-[-0.02em] uppercase text-white no-underline inline-block border-b-[3px] border-[#00ff88] leading-[1.2] transition-colors duration-200 hover:text-[#00ff88] break-all"
         >
           hello@artbeatzone.hr
         </a>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr]">
-        <div className="px-12 py-16 border-b md:border-b-0 md:border-r border-white/10 flex flex-col gap-8">
+        <div className="px-5 md:px-12 py-10 md:py-16 border-b md:border-b-0 md:border-r border-white/10 flex flex-col gap-8">
           {[
             { labelHr: 'Telefon', labelEn: 'Phone', valueHr: '+385 1 234 5678', valueEn: '+385 1 234 5678', color: 'text-[#00ffff]' },
             { labelHr: 'Lokacija', labelEn: 'Location', valueHr: 'Zagreb, HR', valueEn: 'Zagreb, HR', color: 'text-[#ff00ff]' },
@@ -47,29 +47,31 @@ export default function ContactSection() {
           ))}
         </div>
 
-        <div className="px-12 py-16">
+        <div className="px-5 md:px-12 py-10 md:py-16">
           <form onSubmit={handleSubmit} className="flex flex-col">
             <div className={`${fieldClass} border-t`}>
-              <label className={labelClass}>{t('Ime', 'Name')}</label>
-              <input type="text" placeholder={t('Ana Anic', 'Ana Anic')} className={inputClass} />
+              <label htmlFor="contact-name" className={labelClass}>{t('Ime', 'Name')}</label>
+              <input id="contact-name" name="name" type="text" placeholder={t('Ana Anic', 'Ana Anic')} className={inputClass} />
             </div>
             <div className={fieldClass}>
-              <label className={labelClass}>Email</label>
-              <input type="email" placeholder="ana@tvrtka.hr" className={inputClass} />
+              <label htmlFor="contact-email" className={labelClass}>Email</label>
+              <input id="contact-email" name="email" type="email" placeholder="ana@tvrtka.hr" className={inputClass} />
             </div>
             <div className={fieldClass}>
-              <label className={labelClass}>{t('Usluga', 'Service')}</label>
-              <select className={`${inputClass} appearance-none`}>
+              <label htmlFor="contact-service" className={labelClass}>{t('Usluga', 'Service')}</label>
+              <select id="contact-service" name="service" className={`${inputClass} appearance-none`}>
                 <option value="" className="bg-black">{t('- odaberite -', '- select -')}</option>
-                <option className="bg-black">{t('Graficki dizajn', 'Graphic Design')}</option>
-                <option className="bg-black">{t('Izrada web aplikacija', 'Web Development')}</option>
-                <option className="bg-black">{t('Rentanje web stranica', 'Web Rental')}</option>
+                <option value="graficki-dizajn" className="bg-black">{t('Grafički dizajn', 'Graphic Design')}</option>
+                <option value="web-aplikacije" className="bg-black">{t('Izrada web aplikacija', 'Web Development')}</option>
+                <option value="najam-web" className="bg-black">{t('Najam web stranice', 'Web Rental')}</option>
               </select>
             </div>
             <div className={fieldClass}>
-              <label className={`${labelClass} items-start pt-5`}>{t('Poruka', 'Message')}</label>
+              <label htmlFor="contact-message" className={`${labelClass} items-start pt-5`}>{t('Poruka', 'Message')}</label>
               <textarea
-                placeholder={t('Opisite vas projekt...', 'Describe your project...')}
+                id="contact-message"
+                name="message"
+                placeholder={t('Opišite vaš projekt...', 'Describe your project...')}
                 className={`${inputClass} min-h-[120px] resize-none`}
               />
             </div>

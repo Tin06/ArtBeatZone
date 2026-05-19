@@ -41,6 +41,7 @@ export default function ProjectsSection() {
   }, [])
 
   const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => move(1), 4500)
   }, [move])
 
@@ -57,7 +58,7 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="border-b border-white/10 scroll-mt-[60px] bg-black">
-      <div className="flex items-center justify-between px-12 py-12 border-b border-white/10">
+      <div className="flex items-center justify-between px-5 md:px-12 py-8 md:py-12 border-b border-white/10">
         <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-[-0.03em] uppercase text-white">
           {t('Odabrani radovi', 'Selected Work')}
         </h2>
@@ -69,9 +70,9 @@ export default function ProjectsSection() {
         </a>
       </div>
 
-      <div className="px-12 py-12">
+      <div className="px-5 md:px-12 py-8 md:py-12">
         <div
-          className="relative h-[400px] md:h-[520px]"
+          className="relative h-[400px] md:h-[520px] overflow-hidden"
           onMouseEnter={stopTimer}
           onMouseLeave={startTimer}
           onTouchStart={e => { touchX.current = e.touches[0].clientX }}
@@ -87,7 +88,7 @@ export default function ProjectsSection() {
               className={`proj-card ${proj.bgClass}`}
               data-pos={getPos(i, current)}
             >
-              <div className="relative z-10 h-full flex flex-col justify-between p-10">
+              <div className="relative z-10 h-full flex flex-col justify-between p-5 md:p-10">
                 <span className="proj-num-outline text-[5rem] font-bold tracking-[-0.06em] leading-none">
                   {proj.num}
                 </span>
@@ -107,6 +108,7 @@ export default function ProjectsSection() {
 
         <div className="flex items-center mt-6">
           <button
+            type="button"
             onClick={() => move(-1)}
             aria-label={t('Prethodni', 'Previous')}
             className="w-[52px] h-[52px] flex items-center justify-center border border-white/20 text-[1.2rem] text-[#00ff88] -mr-[1.5px] transition-colors duration-150 hover:border-[#00ffff] hover:text-[#00ffff]"
@@ -114,6 +116,7 @@ export default function ProjectsSection() {
             &lt;-
           </button>
           <button
+            type="button"
             onClick={() => move(1)}
             aria-label={t('Sljedeci', 'Next')}
             className="w-[52px] h-[52px] flex items-center justify-center border border-white/20 text-[1.2rem] text-[#00ff88] transition-colors duration-150 hover:border-[#00ffff] hover:text-[#00ffff]"

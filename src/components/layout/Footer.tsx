@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/10 flex flex-col md:flex-row items-stretch justify-between">
-      <span className="px-12 py-6 text-[0.7rem] font-medium tracking-[0.08em] text-white/40 border-b md:border-b-0 md:border-r border-white/10 flex items-center">
+      <span className="px-5 md:px-12 py-6 text-[0.7rem] font-medium tracking-[0.08em] text-white/40 border-b md:border-b-0 md:border-r border-white/10 flex items-center">
         &copy; {year} ARTBEATZONE.{' '}
         {t('SVA PRAVA PRIDRZANA.', 'ALL RIGHTS RESERVED.')}
       </span>
@@ -30,8 +30,8 @@ export default function Footer() {
         ))}
       </ul>
 
-      <span className="px-12 py-6 text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white/60 border-t md:border-t-0 md:border-l border-white/10 flex items-center">
-        {t('Dizajniramo. Razvijamo. Iznajmljujemo.', 'We Design. We Build. We Rent.')}
+      <span className="px-5 md:px-12 py-6 text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white/60 border-t md:border-t-0 md:border-l border-white/10 flex items-center">
+        {t('Dizajniramo. Razvijamo. Realiziramo.', 'We Design. We Build. We Deliver.')}
       </span>
     </footer>
   )

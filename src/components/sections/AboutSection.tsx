@@ -7,19 +7,19 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] border-b border-white/10 scroll-mt-[60px] bg-black">
-      <div className="px-12 py-20 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between">
+      <div className="px-5 md:px-12 py-12 md:py-20 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between">
         <div>
           <p className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-[#ff00ff] mb-4">
             {t('Broj usluga', 'Services count')}
           </p>
-          <span className="text-[clamp(6rem,14vw,12rem)] font-bold leading-none tracking-[-0.06em] text-outline-neon-m">
+          <span className="text-[clamp(3.5rem,14vw,12rem)] font-bold leading-none tracking-[-0.06em] text-outline-neon-m">
             03
           </span>
         </div>
 
         <div className="flex flex-wrap gap-2 mt-8">
           {[
-            { hr: 'Graficki dizajn', en: 'Graphic Design', color: 'border-[#ff00ff]/60 text-[#ff00ff]' },
+            { hr: 'Grafički dizajn', en: 'Graphic Design', color: 'border-[#ff00ff]/60 text-[#ff00ff]' },
             { hr: 'Web razvoj', en: 'Web Dev', color: 'border-[#00ffff]/60 text-[#00ffff]' },
             { hr: 'Web najam', en: 'Web Rental', color: 'border-[#00ff88]/60 text-[#00ff88]' },
           ].map(({ hr, en, color }) => (
@@ -33,7 +33,7 @@ export default function AboutSection() {
         </div>
       </div>
 
-      <div className="px-16 py-20 flex flex-col justify-center">
+      <div className="px-5 md:px-16 py-12 md:py-20 flex flex-col justify-center">
         <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[#00ff88] mb-6">
           {t('O nama', 'About Us')}
         </p>
@@ -46,18 +46,18 @@ export default function AboutSection() {
 
         <p className="text-[0.95rem] text-white/55 leading-[1.85] font-light max-w-[520px]">
           {t(
-            'ArtBeatZone je boutique agencija specijalizirana za graficki dizajn, izradu web aplikacija i rentanje web stranica. Ciljamo na male tvrtke i startupe koji znaju da kvaliteta vizualnog identiteta nije opcija, vec preduvjet za rast.',
-            "ArtBeatZone is a boutique agency specialising in graphic design, web application development, and web rental. We target small businesses and startups that know quality visual identity isn't optional, it's a prerequisite for growth.",
+            'ArtBeatZone je mali studio iz Zagreba specijaliziran za grafički dizajn, izradu web aplikacija i najam web stranica. Radimo s malim tvrtkama i startupima kojima je stalo do toga kako izgledaju i kako funkcioniraju.',
+            'ArtBeatZone is a small studio from Zagreb specialising in graphic design, web application development, and web rental. We work with small businesses and startups that care about how they look and how they work.',
           )}
         </p>
         <p className="text-[0.95rem] text-white/55 leading-[1.85] font-light max-w-[520px] mt-5">
           {t(
-            'Nas pristup je jasan: fokus, preciznost, isporuka. Bez korporativnog zargona. Samo rezultati.',
-            'Our approach is clear: focus, precision, delivery. No corporate jargon. Just results.',
+            'Naš pristup je jednostavan: slušamo, predlažemo i isporučujemo. Bez nepotrebnih sastanaka i korporativnih procesa.',
+            'Our approach is simple: we listen, propose, and deliver. No unnecessary meetings and no corporate processes.',
           )}
         </p>
 
-        <div className="w-full h-[180px] mt-12 bg-black border border-[#00ff88]/30 relative overflow-hidden">
+        <div className="w-full h-[130px] md:h-[180px] mt-8 md:mt-12 bg-black border border-[#00ff88]/30 relative overflow-hidden">
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.8rem] font-bold tracking-[0.3em] uppercase text-outline-white-thin whitespace-nowrap">
             ARTBEATZONE
           </span>

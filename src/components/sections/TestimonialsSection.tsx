@@ -39,7 +39,7 @@ export default function TestimonialsSection() {
       {testimonials.map(({ clientHr, clientEn, quoteHr, quoteEn, nameHr, nameEn, roleHr, roleEn, textColor, bgColor, barClass }, i) => (
         <div
           key={clientHr}
-          className={`py-20 px-12 relative overflow-hidden ${i === 0 ? 'border-b md:border-b-0 md:border-r border-white/10' : ''}`}
+          className={`py-12 md:py-20 px-5 md:px-12 relative overflow-hidden ${i === 0 ? 'border-b md:border-b-0 md:border-r border-white/10' : ''}`}
         >
           <span className={barClass} />
 

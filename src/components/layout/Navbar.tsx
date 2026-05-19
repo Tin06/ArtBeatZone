@@ -22,7 +22,7 @@ export default function Navbar() {
       >
         <a
           href="#hero"
-          className="flex items-center px-8 text-[0.9rem] font-bold tracking-[0.14em] uppercase text-white no-underline border-r border-white/10"
+          className="flex items-center px-4 md:px-8 text-[0.9rem] font-bold tracking-[0.14em] uppercase text-white no-underline border-r border-white/10"
         >
           ArtBeatZone
         </a>
@@ -43,6 +43,7 @@ export default function Navbar() {
           </ul>
 
           <button
+            type="button"
             onClick={toggleLang}
             className="flex items-center px-6 text-[0.72rem] font-bold tracking-[0.12em] uppercase bg-black text-[#00ff88] border-l border-[#00ff88] transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff]"
           >
@@ -50,6 +51,7 @@ export default function Navbar() {
           </button>
 
           <button
+            type="button"
             onClick={() => setMenuOpen(o => !o)}
             aria-label={t('Izbornik', 'Menu')}
             className="md:hidden flex flex-col items-center justify-center gap-[5px] w-[60px] border-l border-white/10 bg-transparent"

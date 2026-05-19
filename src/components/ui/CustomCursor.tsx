@@ -25,17 +25,20 @@ export default function CustomCursor() {
       document.body.classList.toggle('cursor-hover', !!hoverable)
     }
 
+    const onLeave = () => {
+      document.body.classList.remove('cursor-hover')
+    }
+
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseover', onOver)
+    document.addEventListener('mouseleave', onLeave)
 
     function anim() {
       if (!dot || !ring) return
-      dot.style.left = mx + 'px'
-      dot.style.top = my + 'px'
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`
       rx += (mx - rx) * 0.15
       ry += (my - ry) * 0.15
-      ring.style.left = rx + 'px'
-      ring.style.top = ry + 'px'
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`
       rafId = requestAnimationFrame(anim)
     }
     rafId = requestAnimationFrame(anim)
@@ -43,6 +46,7 @@ export default function CustomCursor() {
     return () => {
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseleave', onLeave)
       cancelAnimationFrame(rafId)
     }
   }, [])

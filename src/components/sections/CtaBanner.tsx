@@ -8,22 +8,22 @@ export default function CtaBanner() {
   return (
     <section
       id="cta"
-      className="bg-black border-b border-white/10 py-28 px-12 flex flex-col gap-12"
+      className="bg-black border-b border-white/10 py-16 md:py-28 px-5 md:px-12 flex flex-col gap-8 md:gap-12"
     >
-      <div className="text-[clamp(3rem,8vw,8rem)] font-bold leading-[0.92] tracking-[-0.04em] uppercase">
+      <div className="text-[clamp(1.8rem,8vw,8rem)] font-bold leading-[0.95] tracking-[-0.04em] uppercase">
         <span className="block text-white">
-          {t('VASA VIZIJA.', 'YOUR VISION.')}
+          {t('VAŠA VIZIJA.', 'YOUR VISION.')}
         </span>
         <span className="block text-outline-neon-g">
-          {t('NASE RUKE.', 'OUR HANDS.')}
+          {t('NAŠE RUKE.', 'OUR HANDS.')}
         </span>
       </div>
 
       <div className="flex flex-col md:flex-row items-start md:items-center gap-8 flex-wrap">
         <p className="text-[1rem] text-white/55 max-w-[480px] leading-[1.75] font-light">
           {t(
-            'Razgovarajmo o vasem sljedecem projektu, bez obveza i bez korporativnog zargona.',
-            "Let's talk about your next project, with no commitment and no corporate jargon.",
+            'Razgovarajmo o vašem sljedećem projektu. Bez kompliciranih procesa i korporativnog žargona.',
+            "Let's talk about your next project. No complicated processes and no corporate jargon.",
           )}
         </p>
         <a

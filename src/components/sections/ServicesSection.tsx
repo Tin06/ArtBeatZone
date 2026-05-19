@@ -6,26 +6,26 @@ const services = [
   {
     num: '01',
     numColor: 'text-[#ff00ff]',
-    hr: 'Graficki dizajn',
+    hr: 'Grafički dizajn',
     en: 'Graphic Design',
-    descHr: 'Logo, vizualni identitet, tiskovine, packaging i brand guidelines. Dizajn koji govori prije nego sto izgovorite ijednu rijec.',
-    descEn: 'Logo, visual identity, print materials, packaging, and brand guidelines. Design that speaks before you say a word.',
+    descHr: 'Logo, vizualni identitet, brošure, packaging i brand smjernice. Sve što vaš brand treba da ostavi pravi prvi dojam, još prije nego što netko pročita prvu riječ.',
+    descEn: 'Logo, visual identity, brochures, packaging, and brand guidelines. Everything your brand needs to make the right first impression, before anyone reads a single word.',
   },
   {
     num: '02',
     numColor: 'text-[#00ffff]',
     hr: 'Izrada web aplikacija',
     en: 'Web Development',
-    descHr: 'Prilagodene web aplikacije, e-commerce rjesenja i landing pageovi. Brzo, sigurno i skalabilno za vas rast.',
-    descEn: 'Custom web applications, e-commerce solutions, and landing pages. Fast, secure, and scalable for your growth.',
+    descHr: 'Web aplikacije, e-commerce rješenja i landing stranice prilagođene vašim potrebama. Gradimo stvari koje rade, brzo, pouzdano i spremno za rast.',
+    descEn: 'Web applications, e-commerce solutions, and landing pages tailored to your needs. We build things that work, fast, reliably, and ready to grow.',
   },
   {
     num: '03',
     numColor: 'text-[#00ff88]',
-    hr: 'Rentanje web stranica',
+    hr: 'Najam web stranice',
     en: 'Web Rental',
-    descHr: 'Profesionalna web prisutnost od prvog dana bez kapitalnih troskova. Pretplatni model koji raste s vama.',
-    descEn: 'Professional web presence from day one without capital costs. A subscription model that grows with you.',
+    descHr: 'Profesionalna web stranica bez velikih početnih troškova. Plaćate mjesečno, mi brinemo o dizajnu, hostingu i održavanju, vi se fokusirate na posao.',
+    descEn: 'A professional website without large upfront costs. You pay monthly, we handle design, hosting, and maintenance, you focus on your business.',
   },
 ]
 
@@ -34,7 +34,7 @@ export default function ServicesSection() {
 
   return (
     <section id="services" className="border-b border-white/10 scroll-mt-[60px] bg-black">
-      <div className="flex items-center justify-between px-12 py-12 border-b border-white/10">
+      <div className="flex items-center justify-between px-5 md:px-12 py-8 md:py-12 border-b border-white/10">
         <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-[-0.03em] uppercase text-white">
           {t('Usluge', 'Services')}
         </h2>
@@ -46,13 +46,13 @@ export default function ServicesSection() {
       {services.map(({ num, numColor, hr, en, descHr, descEn }, i) => (
         <div
           key={num}
-          className={`group grid grid-cols-[70px_1fr_50px] md:grid-cols-[100px_1fr_auto] items-center border-white/10 transition-colors duration-150 hover:bg-[#00ff88]/8 ${i < services.length - 1 ? 'border-b' : ''}`}
+          className={`group grid grid-cols-[52px_1fr_52px] md:grid-cols-[100px_1fr_auto] items-center border-white/10 transition-colors duration-150 hover:bg-[#00ff88]/8 ${i < services.length - 1 ? 'border-b' : ''}`}
         >
-          <div className={`py-10 px-6 md:px-12 text-[0.72rem] font-bold tracking-[0.14em] uppercase border-r border-white/10 group-hover:border-[#00ff88]/40 transition-colors duration-150 ${numColor}`}>
+          <div className={`py-6 md:py-10 px-3 md:px-12 text-[0.72rem] font-bold tracking-[0.14em] uppercase border-r border-white/10 group-hover:border-[#00ff88]/40 transition-colors duration-150 ${numColor}`}>
             {num}
           </div>
 
-          <div className="py-10 px-6 md:px-12">
+          <div className="py-6 md:py-10 px-4 md:px-12">
             <p className="text-[clamp(1.2rem,2.5vw,1.8rem)] font-bold tracking-[-0.025em] uppercase mb-2 text-white group-hover:text-[#00ff88] transition-colors duration-150">
               {t(hr, en)}
             </p>
@@ -64,7 +64,7 @@ export default function ServicesSection() {
           <a
             href="#contact"
             aria-label={t(`${hr} kontakt`, `${en} contact`)}
-            className="flex items-center py-10 px-6 md:px-12 text-[1.4rem] text-[#00ff88] transition-colors duration-150 group-hover:text-[#00ffff]"
+            className="flex items-center py-6 md:py-10 px-3 md:px-12 text-[1.4rem] text-[#00ff88] transition-colors duration-150 group-hover:text-[#00ffff]"
           >
             -&gt;
           </a>
