@@ -1,7 +1,6 @@
 'use client'
 
 import { useLang } from '@/lib/language'
-import NeonLines from './NeonLines'
 
 const stats = [
   { num: '5+', hr: 'Godina iskustva', en: 'Years of experience', color: 'text-[#00ff88]' },
@@ -15,7 +14,6 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="relative overflow-hidden min-h-screen pt-[60px] flex flex-col border-b border-white/10 bg-black">
-      <NeonLines />
       <div className="relative z-10 flex-1 px-5 md:px-12 py-12 md:py-20 flex flex-col justify-center border-b border-white/10">
         <p className="flex items-center gap-4 text-[0.68rem] font-semibold tracking-[0.22em] uppercase text-[#00ff88] mb-10">
           <span className="block w-6 h-[1.5px] bg-[#00ff88] shrink-0" />

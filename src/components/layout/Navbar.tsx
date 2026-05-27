@@ -1,13 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useLang } from '@/lib/language'
 
 const navLinks = [
-  { href: '#about', hr: 'O NAMA', en: 'ABOUT' },
-  { href: '#services', hr: 'USLUGE', en: 'SERVICES' },
-  { href: '#projects', hr: 'PROJEKTI', en: 'PROJECTS' },
-  { href: '#contact', hr: 'KONTAKT', en: 'CONTACT' },
+  { href: '/#about', hr: 'O NAMA', en: 'ABOUT' },
+  { href: '/#services', hr: 'USLUGE', en: 'SERVICES' },
+  { href: '/projekti', hr: 'PROJEKTI', en: 'PROJECTS' },
+  { href: '/#contact', hr: 'KONTAKT', en: 'CONTACT' },
 ]
 
 export default function Navbar() {
@@ -38,24 +39,24 @@ export default function Navbar() {
         className="h-[60px] flex items-stretch justify-between"
         aria-label={t('Glavna navigacija', 'Main navigation')}
       >
-        <a
-          href="#hero"
+        <Link
+          href="/#hero"
           className="flex items-center px-4 md:px-8 text-[0.9rem] font-bold tracking-[0.14em] uppercase text-white no-underline border-r border-white/10"
         >
           ArtBeatZone
-        </a>
+        </Link>
 
         <div className="flex items-stretch">
           <ul className="hidden md:flex items-stretch list-none">
             {navLinks.map(({ href, hr, en }) => (
               <li key={href} className="flex items-stretch">
-                <a
+                <Link
                   href={href}
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center px-[1.4rem] text-[0.72rem] font-semibold tracking-[0.1em] uppercase text-white/60 no-underline border-l border-white/10 transition-colors duration-150 hover:text-[#00ff88] hover:border-[#00ff88]/30"
                 >
                   {lang === 'hr' ? hr : en}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -91,14 +92,14 @@ export default function Navbar() {
           >
             {navLinks.map(({ href, hr, en }, index) => (
               <li key={href} className="w-full border-b border-white/10">
-                <a
+                <Link
                   href={href}
                   ref={index === 0 ? firstMenuLinkRef : undefined}
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center justify-center py-6 text-[1rem] font-semibold tracking-[0.1em] uppercase text-white no-underline transition-colors duration-150 hover:text-[#00ff88]"
                 >
                   {lang === 'hr' ? hr : en}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

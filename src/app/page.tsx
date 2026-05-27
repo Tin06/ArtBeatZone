@@ -7,7 +7,10 @@ import ServicesSection from '@/components/sections/ServicesSection'
 import ProjectsSection from '@/components/sections/ProjectsSection'
 import CtaBanner from '@/components/sections/CtaBanner'
 import ContactSection from '@/components/sections/ContactSection'
+import { getLatestPublishedProjects } from '@/lib/projects'
 import { siteConfig } from '@/lib/site'
+
+export const dynamic = 'force-dynamic'
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -38,7 +41,9 @@ const structuredData = {
   ],
 }
 
-export default function Home() {
+export default async function Home() {
+  const { projects, error: projectsError } = await getLatestPublishedProjects(5)
+
   return (
     <>
       <script
@@ -51,7 +56,7 @@ export default function Home() {
           <HeroSection />
           <AboutSection />
           <ServicesSection />
-          <ProjectsSection />
+          <ProjectsSection projects={projects} loadError={projectsError} />
           <CtaBanner />
           <ContactSection />
         </main>
