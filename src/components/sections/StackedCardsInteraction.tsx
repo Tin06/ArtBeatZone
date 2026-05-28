@@ -54,45 +54,60 @@ export default function StackedCardsInteraction({
   rotationAngle?: number
   animationDelay?: number
 }) {
-  const [isHovering, setIsHovering] = useState(false)
   const safeCards = cards.length > 0 ? cards.slice(0, 3) : []
+  const [isHovering, setIsHovering] = useState(false)
+  // order[0] = front card index, order[1] = back-left, order[2] = back-right
+  const [order, setOrder] = useState(() => safeCards.map((_, i) => i))
 
   if (safeCards.length === 0) return null
 
+  function cycleCards() {
+    setOrder(prev => {
+      const next = [...prev]
+      const front = next.shift()!
+      next.push(front)
+      return next
+    })
+  }
+
   return (
     <div
-      className="relative flex h-[390px] w-full items-center justify-center overflow-visible sm:h-[430px] lg:h-full"
+      className="relative flex h-[390px] w-full cursor-pointer select-none items-center justify-center overflow-visible sm:h-[430px] lg:h-full"
       aria-hidden="true"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onClick={cycleCards}
     >
       <div className="relative h-[320px] w-[min(100%,320px)] sm:h-[360px] lg:h-[400px] lg:w-[350px]">
-        {safeCards.map((card, index) => {
-          const isFirst = index === 0
-          const xOffset = index === 1 ? -spreadDistance : index === 2 ? spreadDistance : 0
-          const rotation = index === 1 ? -rotationAngle : index === 2 ? rotationAngle : 0
+        {safeCards.map((card, i) => {
+          const slot = order.indexOf(i) // 0=front, 1=back-left, 2=back-right
+          const isFirst = slot === 0
+          const xOffset = slot === 1 ? -spreadDistance : slot === 2 ? spreadDistance : 0
+          const rotation = slot === 1 ? -rotationAngle : slot === 2 ? rotationAngle : 0
+          const zIndex = slot === 0 ? 20 : slot === 1 ? 11 : 10
 
           return (
             <motion.div
-              key={`${card.image ?? card.accentClass ?? 'card'}-${index}`}
-              className={cn('absolute inset-0', isFirst ? 'z-20' : 'z-10')}
-              initial={{ x: 0, rotate: 0, scale: 1 }}
+              key={`card-${i}`}
+              className="absolute inset-0"
               animate={{
                 x: isHovering ? xOffset : 0,
                 rotate: isHovering ? rotation : 0,
                 scale: isHovering && !isFirst ? 0.96 : 1,
-                zIndex: isFirst ? 20 : 10 - index,
+                zIndex,
               }}
               transition={{
-                duration: 0.3,
-                ease: 'easeInOut',
-                delay: index * animationDelay,
                 type: 'spring',
                 stiffness: 210,
                 damping: 24,
+                delay: isHovering ? slot * animationDelay : 0,
               }}
             >
-              <Card image={card.image} accentClass={card.accentClass ?? fallbackAccents[index]} className={isFirst ? 'border-[#00ff88]/45' : ''} />
+              <Card
+                image={card.image}
+                accentClass={card.accentClass ?? fallbackAccents[i]}
+                className={isFirst ? 'border-[#00ff88]/45' : ''}
+              />
             </motion.div>
           )
         })}

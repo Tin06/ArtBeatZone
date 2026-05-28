@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { useLang } from '@/lib/language'
 
 type FormStatus = 'idle' | 'ready'
@@ -9,7 +9,7 @@ export default function ContactSection() {
   const { t } = useLang()
   const [status, setStatus] = useState<FormStatus>('idle')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: { preventDefault(): void; currentTarget: HTMLFormElement }) {
     e.preventDefault()
 
     const form = e.currentTarget
@@ -58,9 +58,9 @@ export default function ContactSection() {
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr]">
         <div className="px-5 md:px-12 py-10 md:py-16 border-b md:border-b-0 md:border-r border-white/10 flex flex-col gap-8">
           {[
-            { labelHr: 'Telefon', labelEn: 'Phone', valueHr: '+385 1 234 5678', valueEn: '+385 1 234 5678', color: 'text-[#00ffff]' },
+            { labelHr: 'Telefon', labelEn: 'Phone', valueHr: '+385 91 1234569', valueEn: '+385 91 1234569', color: 'text-[#00ffff]' },
             { labelHr: 'Lokacija', labelEn: 'Location', valueHr: 'Zagreb, HR', valueEn: 'Zagreb, HR', color: 'text-[#ff00ff]' },
-            { labelHr: 'Radno vrijeme', labelEn: 'Working hours', valueHr: 'Pon - Pet, 09-17h', valueEn: 'Mon - Fri, 9am-5pm', color: 'text-[#00ff88]' },
+            { labelHr: 'Radno vrijeme', labelEn: 'Working hours', valueHr: 'Pon - Pet, 0-24h', valueEn: 'Mon - Fri, 0-24h', color: 'text-[#00ff88]' },
           ].map(({ labelHr, labelEn, valueHr, valueEn, color }) => (
             <div key={labelHr}>
               <span className="block text-[0.6rem] font-bold tracking-[0.2em] uppercase text-white/40 mb-1">
