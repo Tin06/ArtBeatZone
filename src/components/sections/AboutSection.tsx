@@ -13,7 +13,7 @@ export default function AboutSection() {
             {t('Broj usluga', 'Services count')}
           </p>
           <span className="text-[clamp(3.5rem,14vw,12rem)] font-bold leading-none tracking-[-0.06em] text-outline-neon-m">
-            03
+            04
           </span>
         </div>
 
@@ -22,6 +22,7 @@ export default function AboutSection() {
             { hr: 'Grafički dizajn', en: 'Graphic Design', color: 'border-[#ff00ff]/60 text-[#ff00ff]' },
             { hr: 'Web razvoj', en: 'Web Dev', color: 'border-[#00ffff]/60 text-[#00ffff]' },
             { hr: 'Web najam', en: 'Web Rental', color: 'border-[#00ff88]/60 text-[#00ff88]' },
+            { hr: 'Izrada web stranica', en: 'Website Creation', color: 'border-[#ff8800]/60 text-[#ff8800]' },
           ].map(({ hr, en, color }) => (
             <span
               key={hr}

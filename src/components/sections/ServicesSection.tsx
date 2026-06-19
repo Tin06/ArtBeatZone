@@ -27,6 +27,14 @@ const services = [
     descHr: 'Profesionalna web stranica bez velikih početnih troškova. Plaćate mjesečno, mi brinemo o dizajnu, hostingu i održavanju, vi se fokusirate na posao.',
     descEn: 'A professional website without large upfront costs. You pay monthly, we handle design, hosting, and maintenance, you focus on your business.',
   },
+  {
+    num: '04',
+    numColor: 'text-[#ff8800]',
+    hr: 'Izrada web stranica',
+    en: 'Website Creation',
+    descHr: 'Moderne, brze i responzivne web stranice prilagođene vašem brendu. Od jednostavnih prezentacijskih stranica do kompleksnijih rješenja s CMS-om.',
+    descEn: 'Modern, fast, and responsive websites tailored to your brand. From simple presentation pages to more complex solutions with CMS.',
+  },
 ]
 
 export default function ServicesSection() {
@@ -39,7 +47,7 @@ export default function ServicesSection() {
           {t('Usluge', 'Services')}
         </h2>
         <span className="text-[4rem] font-bold tracking-[-0.06em] text-outline-neon-g leading-none">
-          03
+          04
         </span>
       </div>
 

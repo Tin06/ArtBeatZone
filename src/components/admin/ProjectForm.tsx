@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createBrowserSupabaseClient } from '@/lib/supabase/client'
 import { projectImagesBucket } from '@/lib/supabase/config'
@@ -165,7 +165,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
     }
   }
 
-  async function saveProject(e: FormEvent<HTMLFormElement>) {
+  async function saveProject(e: { preventDefault(): void }) {
     e.preventDefault()
     setSaving(true)
     setMessage('')

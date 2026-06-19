@@ -31,7 +31,7 @@ export default function ContactSection() {
       ].join('\n'),
     )
 
-    window.location.href = `mailto:hello@artbeatzone.hr?subject=${subject}&body=${body}`
+    window.location.href = `mailto:info@artbeatzone.hr?subject=${subject}&body=${body}`
     setStatus('ready')
     window.setTimeout(() => setStatus('idle'), 4000)
   }
@@ -48,10 +48,10 @@ export default function ContactSection() {
           {t('Kontaktirajte nas', 'Get in touch')}
         </p>
         <a
-          href="mailto:hello@artbeatzone.hr"
+          href="mailto:info@artbeatzone.hr"
           className="text-[clamp(1rem,5vw,4.5rem)] font-bold tracking-[-0.02em] uppercase text-white no-underline inline-block border-b-[3px] border-[#00ff88] leading-[1.2] transition-colors duration-200 hover:text-[#00ff88] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff88]/60 break-all"
         >
-          hello@artbeatzone.hr
+          info@artbeatzone.hr
         </a>
       </div>
 
@@ -94,6 +94,7 @@ export default function ContactSection() {
                 <option value="graficki-dizajn" className="bg-black">{t('Grafički dizajn', 'Graphic Design')}</option>
                 <option value="web-aplikacije" className="bg-black">{t('Izrada web aplikacija', 'Web Development')}</option>
                 <option value="najam-web" className="bg-black">{t('Najam web stranice', 'Web Rental')}</option>
+                <option value="izrada-web-stranica" className="bg-black">{t('Izrada web stranica', 'Website Creation')}</option>
               </select>
             </div>
             <div className={fieldClass}>

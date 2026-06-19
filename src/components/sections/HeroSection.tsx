@@ -6,7 +6,7 @@ const stats = [
   { num: '5+', hr: 'Godina iskustva', en: 'Years of experience', color: 'text-[#00ff88]' },
   { num: '40+', hr: 'Projekata', en: 'Projects', color: 'text-[#00ffff]' },
   { num: '30+', hr: 'Zadovoljnih klijenata', en: 'Happy clients', color: 'text-[#ff00ff]' },
-  { num: '3', hr: 'Usluge', en: 'Services', color: 'text-[#00ff88]' },
+  { num: '4', hr: 'Usluge', en: 'Services', color: 'text-[#00ff88]' },
 ]
 
 export default function HeroSection() {

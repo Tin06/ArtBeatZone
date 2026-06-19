@@ -31,12 +31,14 @@ const structuredData = {
   knowsAbout: [
     'Grafički dizajn',
     'Izrada web aplikacija',
+    'Izrada web stranica',
     'Najam web stranica',
     'Branding',
   ],
   serviceType: [
     'Graphic Design',
     'Web Development',
+    'Website Creation',
     'Website Rental',
   ],
 }
