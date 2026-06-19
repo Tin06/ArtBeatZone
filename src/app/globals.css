@@ -229,6 +229,11 @@ body.cursor-hover #cursor-ring {
     color: transparent;
   }
 
+  .text-neon-white {
+    color: rgba(255, 255, 255, 0.65);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.7), 0 0 28px rgba(255, 255, 255, 0.3);
+  }
+
   .proj-num-outline {
     -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
     color: transparent;

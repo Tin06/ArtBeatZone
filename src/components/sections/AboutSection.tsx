@@ -59,7 +59,7 @@ export default function AboutSection() {
         </p>
 
         <div className="w-full h-[130px] md:h-[180px] mt-8 md:mt-12 bg-black border border-[#00ff88]/30 relative overflow-hidden">
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.8rem] font-bold tracking-[0.3em] uppercase text-white/15 whitespace-nowrap">
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.8rem] font-bold tracking-[0.3em] uppercase text-neon-white whitespace-nowrap">
             ARTBEATZONE
           </span>
         </div>
