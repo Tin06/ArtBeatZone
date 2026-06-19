@@ -12,7 +12,7 @@ export default function AboutSection() {
           <p className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-[#ff00ff] mb-4">
             {t('Broj usluga', 'Services count')}
           </p>
-          <span className="text-[clamp(3.5rem,14vw,12rem)] font-bold leading-none tracking-[-0.06em] text-outline-neon-m">
+          <span className="text-[clamp(3.5rem,14vw,12rem)] font-bold leading-none tracking-[-0.06em] text-[#ff00ff]">
             04
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function AboutSection() {
         </p>
 
         <div className="w-full h-[130px] md:h-[180px] mt-8 md:mt-12 bg-black border border-[#00ff88]/30 relative overflow-hidden">
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.8rem] font-bold tracking-[0.3em] uppercase text-outline-white-thin whitespace-nowrap">
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.8rem] font-bold tracking-[0.3em] uppercase text-white/15 whitespace-nowrap">
             ARTBEATZONE
           </span>
         </div>

@@ -14,7 +14,7 @@ export default function CtaBanner() {
         <span className="block text-white">
           {t('VAŠA VIZIJA.', 'YOUR VISION.')}
         </span>
-        <span className="block text-outline-neon-g">
+        <span className="block text-[#00ff88]">
           {t('NAŠE RUKE.', 'OUR HANDS.')}
         </span>
       </div>

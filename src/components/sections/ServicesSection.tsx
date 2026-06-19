@@ -46,7 +46,7 @@ export default function ServicesSection() {
         <h2 className="text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-[-0.03em] uppercase text-white">
           {t('Usluge', 'Services')}
         </h2>
-        <span className="text-[4rem] font-bold tracking-[-0.06em] text-outline-neon-g leading-none">
+        <span className="text-[4rem] font-bold tracking-[-0.06em] text-[#00ff88] leading-none">
           04
         </span>
       </div>
