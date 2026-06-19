@@ -22,7 +22,7 @@ export default function HeroSection() {
 
         <h1 className="text-[clamp(3rem,12vw,11rem)] font-bold leading-[0.92] tracking-[-0.04em] uppercase">
           <span className="block text-white">{t('DIZAJN', 'DESIGN')}</span>
-          <span className="block text-outline-neon-c">&amp; WEB</span>
+          <span className="block text-[#00ffff]">&amp; WEB</span>
         </h1>
 
         <p className="text-[clamp(1rem,1.5vw,1.1rem)] text-white/55 max-w-[560px] leading-[1.7] mt-10">
