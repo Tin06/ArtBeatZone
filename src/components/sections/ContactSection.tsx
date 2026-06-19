@@ -1,45 +1,60 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLang } from '@/lib/language'
 
-type FormStatus = 'idle' | 'ready'
+type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
 
 export default function ContactSection() {
   const { t } = useLang()
   const [status, setStatus] = useState<FormStatus>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
 
-  function handleSubmit(e: { preventDefault(): void; currentTarget: HTMLFormElement }) {
+  async function handleSubmit(e: { preventDefault(): void; currentTarget: HTMLFormElement }) {
     e.preventDefault()
+    if (status === 'sending') return
 
     const form = e.currentTarget
-    if (!form.reportValidity()) return
-
     const formData = new FormData(form)
-    const name = String(formData.get('name') || '').trim()
-    const email = String(formData.get('email') || '').trim()
-    const service = String(formData.get('service') || '').trim()
-    const message = String(formData.get('message') || '').trim()
-    const subject = encodeURIComponent(`ArtBeatZone upit - ${name}`)
-    const body = encodeURIComponent(
-      [
-        `Ime: ${name}`,
-        `Email: ${email}`,
-        `Usluga: ${service || '-'}`,
-        '',
-        message,
-      ].join('\n'),
-    )
 
-    window.location.href = `mailto:info@artbeatzone.hr?subject=${subject}&body=${body}`
-    setStatus('ready')
-    window.setTimeout(() => setStatus('idle'), 4000)
+    setStatus('sending')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: String(formData.get('name') || '').trim(),
+          email: String(formData.get('email') || '').trim(),
+          service: String(formData.get('service') || '').trim(),
+          message: String(formData.get('message') || '').trim(),
+        }),
+      })
+
+      const data = await res.json() as { ok?: boolean; error?: string }
+
+      if (!res.ok || !data.ok) {
+        setErrorMsg(data.error ?? t('Slanje nije uspjelo.', 'Sending failed.'))
+        setStatus('error')
+        return
+      }
+
+      setStatus('sent')
+      formRef.current?.reset()
+      setTimeout(() => setStatus('idle'), 5000)
+    } catch {
+      setErrorMsg(t('Mrežna greška. Pokušajte ponovo.', 'Network error. Please try again.'))
+      setStatus('error')
+    }
   }
 
   const inputClass = 'bg-transparent text-white text-[0.9rem] py-5 px-6 outline-none transition-colors duration-150 focus:bg-[#00ff88]/8 focus-visible:ring-2 focus-visible:ring-[#00ff88]/50 w-full placeholder:text-white/25'
   const labelClass = 'text-[0.62rem] font-bold tracking-[0.16em] uppercase text-[#00ff88] py-5 px-4 flex items-center border-b md:border-b-0 md:border-r border-white/10'
   const fieldClass = 'grid grid-cols-1 md:grid-cols-[140px_1fr] border-b border-white/10'
-  const helperId = 'contact-helper'
+
+  const isSending = status === 'sending'
 
   return (
     <section id="contact" className="border-b border-white/10 scroll-mt-[60px] bg-black">
@@ -72,24 +87,18 @@ export default function ContactSection() {
         </div>
 
         <div className="px-5 md:px-12 py-10 md:py-16">
-          <form onSubmit={handleSubmit} className="flex flex-col" aria-describedby={helperId}>
-            <p id={helperId} className="sr-only">
-              {t(
-                'Obavezna su polja ime, email i poruka. Slanje otvara vaš email klijent.',
-                'Name, email, and message are required. Submitting opens your email client.',
-              )}
-            </p>
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col">
             <div className={`${fieldClass} border-t`}>
               <label htmlFor="contact-name" className={labelClass}>{t('Ime', 'Name')}</label>
-              <input id="contact-name" name="name" type="text" placeholder={t('Ana Anić', 'Ana Anic')} className={inputClass} autoComplete="name" required />
+              <input id="contact-name" name="name" type="text" placeholder={t('Ana Anić', 'Ana Anic')} className={inputClass} autoComplete="name" required disabled={isSending} />
             </div>
             <div className={fieldClass}>
               <label htmlFor="contact-email" className={labelClass}>Email</label>
-              <input id="contact-email" name="email" type="email" placeholder="ana@tvrtka.hr" className={inputClass} autoComplete="email" required />
+              <input id="contact-email" name="email" type="email" placeholder="ana@tvrtka.hr" className={inputClass} autoComplete="email" required disabled={isSending} />
             </div>
             <div className={fieldClass}>
               <label htmlFor="contact-service" className={labelClass}>{t('Usluga', 'Service')}</label>
-              <select id="contact-service" name="service" className={`${inputClass} appearance-none`} defaultValue="">
+              <select id="contact-service" name="service" className={`${inputClass} appearance-none`} defaultValue="" disabled={isSending}>
                 <option value="" className="bg-black">{t('- odaberite -', '- select -')}</option>
                 <option value="graficki-dizajn" className="bg-black">{t('Grafički dizajn', 'Graphic Design')}</option>
                 <option value="web-aplikacije" className="bg-black">{t('Izrada web aplikacija', 'Web Development')}</option>
@@ -105,20 +114,25 @@ export default function ContactSection() {
                 placeholder={t('Opišite vaš projekt...', 'Describe your project...')}
                 className={`${inputClass} min-h-[120px] resize-none`}
                 required
+                disabled={isSending}
               />
             </div>
 
             <div className="mt-8 flex flex-col items-start gap-4">
               <button
                 type="submit"
-                className="bg-black text-[#00ff88] border-[1.5px] border-[#00ff88] px-12 py-4 text-[0.78rem] font-bold tracking-[0.12em] uppercase transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff88]/60"
+                disabled={isSending}
+                className="bg-black text-[#00ff88] border-[1.5px] border-[#00ff88] px-12 py-4 text-[0.78rem] font-bold tracking-[0.12em] uppercase transition-colors duration-150 hover:text-[#00ffff] hover:border-[#00ffff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00ff88]/60 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t('Pošalji email ->', 'Send email ->')}
+                {isSending ? t('Slanje...', 'Sending...') : t('Pošalji ->', 'Send ->')}
               </button>
-              <p className="min-h-5 text-[0.72rem] font-medium tracking-[0.08em] uppercase text-white/45" role="status" aria-live="polite">
-                {status === 'ready'
-                  ? t('Email klijent je otvoren za slanje poruke.', 'Your email client is ready to send the message.')
-                  : ''}
+              <p className="min-h-5 text-[0.72rem] font-medium tracking-[0.08em] uppercase" role="status" aria-live="polite">
+                {status === 'sent' && (
+                  <span className="text-[#00ff88]">{t('Poruka je poslana. Javit ćemo se uskoro.', 'Message sent. We will get back to you soon.')}</span>
+                )}
+                {status === 'error' && (
+                  <span className="text-[#ff3b6b]">{errorMsg}</span>
+                )}
               </p>
             </div>
           </form>
