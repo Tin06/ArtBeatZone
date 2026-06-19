@@ -14,17 +14,17 @@ export default function Footer() {
         {t('SVA PRAVA PRIDRZANA.', 'ALL RIGHTS RESERVED.')}
       </span>
 
-      <ul className="flex list-none">
+      <ul className="flex flex-wrap list-none">
         {[
           { href: '/#about',    hr: 'O NAMA',   en: 'ABOUT'    },
           { href: '/#services', hr: 'USLUGE',   en: 'SERVICES' },
           { href: '/projekti',  hr: 'PROJEKTI', en: 'PROJECTS' },
           { href: '/#contact',  hr: 'KONTAKT',  en: 'CONTACT'  },
         ].map(({ href, hr, en }) => (
-          <li key={href}>
+          <li key={href} className="flex-1 min-w-[50%] md:min-w-0">
             <Link
               href={href}
-              className="flex items-center px-6 py-4 md:py-0 h-full text-[0.7rem] font-semibold tracking-[0.1em] uppercase text-white/50 no-underline border-r border-b md:border-b-0 border-white/10 transition-colors duration-150 hover:text-[#00ff88]"
+              className="flex items-center justify-center md:justify-start px-4 md:px-6 py-4 md:py-0 h-full text-[0.7rem] font-semibold tracking-[0.1em] uppercase text-white/50 no-underline border-r border-b md:border-b-0 border-white/10 transition-colors duration-150 hover:text-[#00ff88]"
             >
               {lang === 'hr' ? hr : en}
             </Link>
